@@ -8,3 +8,4 @@ pandas==1.4.3
 streamlit-aggrid==0.2.3.post2
 plotly==5.9.0
 tensorflow==2.9.1
+matplotlib==3.5.2
