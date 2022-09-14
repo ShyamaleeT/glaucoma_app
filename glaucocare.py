@@ -9,9 +9,6 @@ from st_aggrid import AgGrid
 import plotly.express as px
 import io 
 import altair as alt
-
-import streamlit as st
-
 from PIL import Image, ImageOps
 import numpy as np
 import os
@@ -24,7 +21,6 @@ from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.applications import imagenet_utils
 from matplotlib import pyplot
 import imutils
-import cv2
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -138,8 +134,6 @@ elif choose == "Glaucoma Statistics":
     st.altair_chart(bar_chart, use_container_width=True)
 
 
-
-
 elif choose == "Glaucoma Analysis Tool":
     col1, col2 = st.columns([0.8, 0.2])
     with col1:               # To display the header text using css style
@@ -154,8 +148,11 @@ elif choose == "Glaucoma Analysis Tool":
     st.write("To determine whether glaucomatous symptoms are present in an eye fundus image, please upload the image through the pane that can be found below. Depending on your network connection, it will take about 1~3 minutes to present the result on the screen.")
     
     st.write("This is a simple image classification web app to predict glaucoma through fundus image of eye")
+    
+    my_path = os.path.abspath(os.path.dirname(__file__))
+    model_path = os.path.join(my_path, "sep_5.h5")
 
-    model = tf.keras.models.load_model('sep_5.h5', compile=False)
+    model = tf.keras.models.load_model(model_path, compile=False)
 
     label_dict={1:'Glaucoma', 0:'Normal'}
 
