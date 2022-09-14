@@ -149,10 +149,10 @@ elif choose == "Glaucoma Analysis Tool":
     
     st.write("This is a simple image classification web app to predict glaucoma through fundus image of eye")
     
-    my_path = os.path.abspath(os.path.dirname(__file__))
-    model_path = os.path.join(my_path, "sep_5.h5")
+    #my_path = os.path.abspath(os.path.dirname(__file__))
+    #model_path = os.path.join(my_path, "sep_5.h5")
 
-    model = tf.keras.models.load_model(model_path, compile=False)
+    model = tf.keras.models.load_model('sep_5.h5', compile=False)
 
     label_dict={1:'Glaucoma', 0:'Normal'}
 
