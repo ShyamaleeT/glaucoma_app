@@ -21,6 +21,7 @@ from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.applications import imagenet_utils
 from matplotlib import pyplot
 import imutils
+import subprocess
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -152,8 +153,12 @@ elif choose == "Glaucoma Analysis Tool":
     #my_path = os.path.abspath(os.path.dirname(__file__))
     #model_path = os.path.join(my_path, "sep_5.h5")
 
-    model = tf.keras.models.load_model('sep_5.h5', compile=False)
+    if not os.path.isfile('model.h5'):
+    subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
 
+    model = tf.keras.models.load_model('model.h5', compile=False)
+    
+    
     label_dict={1:'Glaucoma', 0:'Normal'}
 
     file = st.file_uploader("Please upload an image(jpg/png/jpeg/bmp) file", type=["jpg", "png", "jpeg", "bmp"])
