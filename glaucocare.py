@@ -106,7 +106,7 @@ elif choose == "Glaucoma Statistics":
     df=data_upload()
     #st.dataframe(data = df)
 
-    st.header("The 10 countries with the highest number of persons with vision loss - 2020")
+    st.header("The 10 countries with the highest number of persons with vision loss - 2022")
     st.write("As may be expected, these countries also have the largest populations. China and India together account for 49% of the world’s total burden of blindness and vision impairment, while their populations represent 37% of the global population.")
     AgGrid(df)
 
@@ -119,7 +119,7 @@ elif choose == "Glaucoma Statistics":
     df1=data_upload1()
     #st.dataframe(data = df)
 
-    st.header("The 10 countries with the highest rates of vision loss - 2020")
+    st.header("The 10 countries with the highest rates of vision loss - 2022")
     st.write("The comparative age-standardised prevalence rate can be helpful in providing a comparison of which country experiences the highest rates of vision impairment, regardless of age structure. India is the only country to appear on both ‘top 10’ lists, as it has the most vision impaired people, as well as the 5th highest overall rate of vision impairment.")
     AgGrid(df1)
 
