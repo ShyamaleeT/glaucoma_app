@@ -123,7 +123,7 @@ elif choose == "Glaucoma Statistics":
     st.write("The comparative age-standardised prevalence rate can be helpful in providing a comparison of which country experiences the highest rates of vision impairment, regardless of age structure. India is the only country to appear on both ‘top 10’ lists, as it has the most vision impaired people, as well as the 5th highest overall rate of vision impairment.")
     AgGrid(df1)
 
-    st.markdown(f'<h1 style="color:Red;font-size:25px;"> {"In 2020 in Sri Lanka, there were an estimated 3.9 million people with vision loss. Of these, 89,000 people were blind"}</h1>',unsafe_allow_html=True)
+    st.markdown(f'<h1 style="color:Red;font-size:25px;"> {"In 2022 in Sri Lanka, there were an estimated 3.9 million people with vision loss. Of these, 89,000 people were blind"}</h1>',unsafe_allow_html=True)
     energy_source = pd.DataFrame({
     "Types": ["Blindness","Mild","Mod-severe","Near","Blindness","Mild","Mod-severe","Near","Blindness","Mild","Mod-severe","Near","Blindness","Mild","Mod-severe","Near"],
     "Age prevalence %":  [0.60893,0.5401989,0.4371604,0.3701105,5.2044229,5.0064095,4.819523,4.6035189,5.4498435,5.6630457,5.5772188,5.1737878,5.7292227,5.5587928,5.3857774,5.2338178],
