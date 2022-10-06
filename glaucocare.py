@@ -147,6 +147,7 @@ elif choose == "Glaucoma Analysis Tool":
     
     st.write("This is a simple image classification web app to predict glaucoma through fundus image of eye")
     st.write("Sample Data: [Fundus Images](https://drive.google.com/drive/folders/1rKa5xtzw4_8Y53Om4e5LIlH6Jhp3hAT8?usp=sharing)")
+    st.write("[User Manual](https://drive.google.com/file/d/13qws360wHPfUNgnrBCLqQRr7RPR1sTjJ/view?usp=sharing)")
     
     #my_path = os.path.abspath(os.path.dirname(__file__))
     #model_path = os.path.join(my_path, "sep_5.h5")
