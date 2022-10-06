@@ -146,6 +146,7 @@ elif choose == "Glaucoma Analysis Tool":
     st.write("To determine whether glaucomatous symptoms are present in an eye fundus image, please upload the image through the pane that can be found below. Depending on your network connection, it will take about 1~3 minutes to present the result on the screen.")
     
     st.write("This is a simple image classification web app to predict glaucoma through fundus image of eye")
+    st.write("Sample Data:")
     
     #my_path = os.path.abspath(os.path.dirname(__file__))
     #model_path = os.path.join(my_path, "sep_5.h5")
