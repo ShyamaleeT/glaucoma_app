@@ -171,7 +171,7 @@ elif choose == "Glaucoma Analysis Tool":
             opencv_image = cv2.imdecode(file_bytes, 1)
             st.image(opencv_image, width=100, channels="BGR",use_column_width=True)
             opencv_image_processed = preprocess(opencv_image)
-
+"""
         with col_b:
             # imageI = Image.open(file)
             # st.image(imageI, width=250)
@@ -187,6 +187,8 @@ elif choose == "Glaucoma Analysis Tool":
             (heatmap, output) = cam.overlay_heatmap(heatmap, opencv_image, alpha=0.5)
             heatmap = imutils.resize(heatmap, width=100)
             st.image(heatmap,channels="BGR",use_column_width=True)
+   """         
+            
         with col_c:
             st.subheader("Visualized image")
             last_conv_layer= "conv5_block3_out" 
