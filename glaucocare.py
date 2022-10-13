@@ -176,17 +176,18 @@ elif choose == "Glaucoma Analysis Tool":
             # imageI = Image.open(file)
             # st.image(imageI, width=250)
 
-            st.subheader(" Heatmap")
-            last_conv_layer= "conv5_block3_out" 
+#             st.subheader(" Heatmap")
+#             last_conv_layer= "conv5_block3_out" 
 
-            preds = model.predict(opencv_image_processed)
-            i = np.argmax(preds[0])
-            cam = GradCAM(model, i, last_conv_layer) 
-            heatmap = cam.compute_heatmap(opencv_image_processed)
-            heatmap = cv2.resize(heatmap, (opencv_image.shape[1], opencv_image.shape[0]))
-            (heatmap, output) = cam.overlay_heatmap(heatmap, opencv_image, alpha=0.5)
-            heatmap = imutils.resize(heatmap, width=100)
-            st.image(heatmap,channels="BGR",use_column_width=True)
+#             preds = model.predict(opencv_image_processed)
+#             i = np.argmax(preds[0])
+#             cam = GradCAM(model, i, last_conv_layer) 
+#             heatmap = cam.compute_heatmap(opencv_image_processed)
+#             heatmap = cv2.resize(heatmap, (opencv_image.shape[1], opencv_image.shape[0]))
+#             (heatmap, output) = cam.overlay_heatmap(heatmap, opencv_image, alpha=0.5)
+#             heatmap = imutils.resize(heatmap, width=100)
+#             st.image(heatmap,channels="BGR",use_column_width=True)
+            
         with col_c:
             st.subheader("Visualized image")
             last_conv_layer= "conv5_block3_out" 
