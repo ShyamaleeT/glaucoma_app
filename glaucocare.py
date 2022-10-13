@@ -161,7 +161,7 @@ elif choose == "Glaucoma Analysis Tool":
         file_details = {"filename": file.name, "filetype": file.type,"filesize": file.size}
         file_bytes = np.asarray(bytearray(file.read()), dtype=np.uint8)
 
-        col_a, col_b, col_c = st.columns(3)
+        col_a, col_b = st.columns(2)
 
         with col_a:
             st.subheader("Input image")
@@ -172,7 +172,7 @@ elif choose == "Glaucoma Analysis Tool":
             st.image(opencv_image, width=100, channels="BGR",use_column_width=True)
             opencv_image_processed = preprocess(opencv_image)
 
-        with col_b:
+        #with col_b:
             # imageI = Image.open(file)
             # st.image(imageI, width=250)
 
@@ -188,7 +188,7 @@ elif choose == "Glaucoma Analysis Tool":
 #             heatmap = imutils.resize(heatmap, width=100)
 #             st.image(heatmap,channels="BGR",use_column_width=True)
             
-        with col_c:
+        with col_b:
             st.subheader("Visualized image")
             last_conv_layer= "conv5_block3_out" 
 
