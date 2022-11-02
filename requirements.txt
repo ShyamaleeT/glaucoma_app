@@ -10,3 +10,4 @@ plotly==5.9.0
 tensorflow==2.9.1
 matplotlib==3.5.2
 imutils==0.5.4
+skimage ==0.19.2
