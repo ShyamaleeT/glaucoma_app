@@ -285,32 +285,32 @@ elif choose == "Glaucoma Analysis Tool":
     os.remove('temp_cup.png')
     os.remove('temp_disc.png')
 
-        prediction = import_and_predict(imageI, model)
-        pred = ((prediction[0][0]))
-        print (pred)
-        result=np.argmax(prediction,axis=1)[0]
-        print (result)
-        accuracy=float(np.max(prediction,axis=1)[0])
-        print(accuracy)
-        label=label_dict[result]
-        print(label)
-        # print(pred,result,accuracy)
-        # response = {'prediction': {'result': label,'accuracy': accuracy}}
-        # print(response)
+    prediction = import_and_predict(imageI, model)
+    pred = ((prediction[0][0]))
+    print (pred)
+    result=np.argmax(prediction,axis=1)[0]
+    print (result)
+    accuracy=float(np.max(prediction,axis=1)[0])
+    print(accuracy)
+    label=label_dict[result]
+    print(label)
+    # print(pred,result,accuracy)
+    # response = {'prediction': {'result': label,'accuracy': accuracy}}
+    # print(response)
 
-        Normal_prob = "{:.2%}".format(1-pred)
-        Glaucoma_prob = "{:.2%}".format(pred)
-        if(pred> 0.5):
-            st.markdown(f'<h1 style="color:Red;font-size:35px;">{""" Glaucoma Eye"""}</h1>', unsafe_allow_html=True)
-            st.text("The area in the image that is highlighted is thought to be glaucomatous.")
-        else:
-            st.markdown(f'<h1 style="color:Blue;font-size:35px;">{"""Healthy Eye"""}</h1>', unsafe_allow_html=True)
-                #st.write("""### You are affected by Glaucoma. Please consult an ophthalmologist as soon as possible.""" )
+    Normal_prob = "{:.2%}".format(1-pred)
+    Glaucoma_prob = "{:.2%}".format(pred)
+    if(pred> 0.5):
+        st.markdown(f'<h1 style="color:Red;font-size:35px;">{""" Glaucoma Eye"""}</h1>', unsafe_allow_html=True)
+        st.text("The area in the image that is highlighted is thought to be glaucomatous.")
+    else:
+        st.markdown(f'<h1 style="color:Blue;font-size:35px;">{"""Healthy Eye"""}</h1>', unsafe_allow_html=True)
+            #st.write("""### You are affected by Glaucoma. Please consult an ophthalmologist as soon as possible.""" )
 
-        st.subheader('Prediction Probability')
-        col1, col2 = st.columns(2)
-        col1.metric("Glaucoma", Glaucoma_prob)
-        col2.metric("Normal", Normal_prob)
+    st.subheader('Prediction Probability')
+    col1, col2 = st.columns(2)
+    col1.metric("Glaucoma", Glaucoma_prob)
+    col2.metric("Normal", Normal_prob)
 
-        st.caption("**Note:This is a prototype tool for glaucoma diagnosis, using experimental deep learning techniques. It is recommended to consult a medical doctor for a proper diagnosis.")
-   
+    st.caption("**Note:This is a prototype tool for glaucoma diagnosis, using experimental deep learning techniques. It is recommended to consult a medical doctor for a proper diagnosis.")
+
