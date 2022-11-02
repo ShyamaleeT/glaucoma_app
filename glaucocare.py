@@ -30,7 +30,7 @@ from keras.layers import Dense, Dropout, Activation, Flatten, BatchNormalization
 from keras.layers import Convolution2D, ZeroPadding2D, Embedding, LSTM, concatenate, Lambda, Conv2DTranspose, Cropping2D
 act = ReLU
 from custom_model import *
-from algo import *
+from CDR import *
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
