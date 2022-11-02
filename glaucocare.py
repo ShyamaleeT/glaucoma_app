@@ -1,28 +1,37 @@
-import streamlit as st
-from streamlit_option_menu import option_menu
-import streamlit.components.v1 as html
-from  PIL import Image
-import numpy as np
-import cv2
-import pandas as pd
-from st_aggrid import AgGrid
-import plotly.express as px
-import io 
-import altair as alt
-from PIL import Image, ImageOps
-import numpy as np
 import os
-import tensorflow as tf
-from keras.models import load_model
-from tensorflow.keras.applications import ResNet50
-from gradcam import GradCAM
-from tensorflow.keras.preprocessing.image import img_to_array
-from tensorflow.keras.preprocessing.image import load_img
-from tensorflow.keras.applications import imagenet_utils
-from matplotlib import pyplot
+import cv2
+import keras
 import imutils
-import subprocess
 
+import numpy as np
+import streamlit as st
+import tensorflow as tf
+from io import StringIO
+from keras import losses
+from gradcam import GradCAM
+from matplotlib import pyplot
+import matplotlib.pyplot as plt
+from PIL import Image, ImageOps
+from keras.models import Model
+from keras.layers import ELU, ReLU
+from keras.models import load_model
+from keras.preprocessing import image
+from skimage.transform import resize
+from keras.models import Model, load_model
+from keras_preprocessing.image import load_img
+from tensorflow.keras.optimizers import Adadelta
+from tensorflow.keras.applications import ResNet50
+from tensorflow.keras.applications import imagenet_utils
+from tensorflow.keras.utils import load_img, img_to_array 
+from tensorflow.keras.preprocessing.image import img_to_array
+from keras.layers import Input, MaxPooling2D, AveragePooling2D, average
+from keras.layers import concatenate, Conv2D, Conv2DTranspose, Dropout
+from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
+from keras.layers import Dense, Dropout, Activation, Flatten, BatchNormalization, UpSampling2D
+from keras.layers import Convolution2D, ZeroPadding2D, Embedding, LSTM, concatenate, Lambda, Conv2DTranspose, Cropping2D
+act = ReLU
+from custom_model import *
+from algo import *
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
@@ -45,6 +54,24 @@ def import_and_predict(image_data, model):
     img_reshape = image[np.newaxis,...]
     prediction = model.predict(img_reshape)
     return prediction
+
+def read_input(path):
+    x = cv2.imread(path)
+    x = cv2.resize(x, (256, 256))
+    b, g, r = cv2.split(x)
+    x = cv2.merge((r, r, r))
+    return x.reshape(256, 256, 3)/255.
+
+
+def read_gt(path):
+    x = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    x = cv2.resize(x, (256, 256))
+    return x/255.
+
+def load_image(image):
+    image = read_image(image)
+    return img_load
+
 with st.sidebar:
     choose = option_menu("Content", ["Glaucoma", "Glaucoma Statistics","Glaucoma Analysis Tool"],
                          icons=['house', 'kanban', 'person lines fill'],
@@ -200,6 +227,63 @@ elif choose == "Glaucoma Analysis Tool":
             (heatmap, output) = cam.overlay_heatmap(heatmap, opencv_image, alpha=0.5)
             output = imutils.resize(output, width=100)
             st.image(output,channels="BGR",use_column_width=True)
+        
+        col1_a, col1_b = st.columns(2)
+
+    with col1_a:
+
+        contour_img = np.array(Image.open(file))
+        img = cv2.resize(contour_img, (256, 256))
+        b, g, r = cv2.split(img)
+        img_r = cv2.merge((b, b, b))/255.
+        #img_r1= cv2.resize(img_r, (224,224))
+        #st.image(img)
+
+        disc_model = get_unet(do=0.25, activation=act)
+        disc_model.load_weights('models/OD_Segmentation.h5')
+
+        cup_model = get_unet1(do=0.2, activation=act)
+        cup_model.load_weights('models/OC_Segmentation.h5')
+
+        disc_pred = disc_model.predict(np.array([img_r]))
+        disc_pred = np.clip(disc_pred, 0, 1)
+        pred_disc = (disc_pred[0, :, :, 0]>0.5).astype(int)
+        pred_disc = 255 * pred_disc#.*(pred_disc - np.min(pred_disc))/(np.max(pred_disc)-np.min(pred_disc))
+        cv2.imwrite('temp_disc.png', pred_disc)
+
+        disc = cv2.imread('temp_disc.png', cv2.IMREAD_GRAYSCALE)
+        st.image(pred_disc, width=225)
+
+        masked = cv2.bitwise_and(img, img, mask = disc)
+        #st.image(disc)
+        st.image(masked, width=225)
+        #plt.show()
+
+        mb, mg, mr = cv2.split(masked)
+        masked = cv2.merge((mg, mg, mg)) #Morphological segmentation for defining optic disc from Green channel and optic cup from Red channel
+
+    with col1_b: #cup segmentation
+        cup_pred = cup_model.predict(np.array([masked]))
+        pred_cup = (cup_pred[0, :, :, 0]>0.5).astype(int)
+        pred_cup = cv2.bilateralFilter(cup_pred[0, :, :, 0],10,40,20)
+        pred_cup = (pred_cup > 0.5).astype(int)
+        pred_cup = resize(pred_cup, (512, 512))
+        pred_cup = 255.*(pred_cup - np.min(pred_cup))/(np.max(pred_cup)-np.min(pred_cup))
+        cv2.imwrite('temp_cup.png', pred_cup)
+        cup = cv2.imread('temp_cup.png', cv2.IMREAD_GRAYSCALE)
+        st.image(pred_cup, clamp = True)
+
+    disc = resize(disc, (512, 512))
+    cv2.imwrite('temp_disc.png', disc)
+    disc = cv2.imread('temp_disc.png', cv2.IMREAD_GRAYSCALE)
+    (thresh, disc) = cv2.threshold(disc, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    cv2.imwrite('temp_disc.png', disc)
+    (thresh, cup) = cv2.threshold(cup, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+
+    cup_img = Image.open('temp_cup.png')
+    disc_img = Image.open('temp_disc.png')  
+    os.remove('temp_cup.png')
+    os.remove('temp_disc.png')
 
         prediction = import_and_predict(imageI, model)
         pred = ((prediction[0][0]))
@@ -229,6 +313,4 @@ elif choose == "Glaucoma Analysis Tool":
         col2.metric("Normal", Normal_prob)
 
         st.caption("**Note:This is a prototype tool for glaucoma diagnosis, using experimental deep learning techniques. It is recommended to consult a medical doctor for a proper diagnosis.")
-    
-
-        
+   
