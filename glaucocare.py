@@ -256,9 +256,8 @@ elif choose == "Glaucoma Analysis Tool":
 
             masked = cv2.bitwise_and(img, img, mask = disc)
             #st.image(disc)
-            st.image(masked, width=225)
+            #st.image(masked, width=225)
             #plt.show()
-
             mb, mg, mr = cv2.split(masked)
             masked = cv2.merge((mg, mg, mg)) #Morphological segmentation for defining optic disc from Green channel and optic cup from Red channel
 
