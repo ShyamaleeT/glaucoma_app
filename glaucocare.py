@@ -230,60 +230,60 @@ elif choose == "Glaucoma Analysis Tool":
         
         col1_a, col1_b = st.columns(2)
 
-    with col1_a:
+        with col1_a:
 
-        contour_img = np.array(Image.open(file))
-        img = cv2.resize(contour_img, (256, 256))
-        b, g, r = cv2.split(img)
-        img_r = cv2.merge((b, b, b))/255.
-        #img_r1= cv2.resize(img_r, (224,224))
-        #st.image(img)
+            contour_img = np.array(Image.open(file))
+            img = cv2.resize(contour_img, (256, 256))
+            b, g, r = cv2.split(img)
+            img_r = cv2.merge((b, b, b))/255.
+            #img_r1= cv2.resize(img_r, (224,224))
+            #st.image(img)
 
-        disc_model = get_unet(do=0.25, activation=act)
-        disc_model.load_weights('models/OD_Segmentation.h5')
+            disc_model = get_unet(do=0.25, activation=act)
+            disc_model.load_weights('models/OD_Segmentation.h5')
 
-        cup_model = get_unet1(do=0.2, activation=act)
-        cup_model.load_weights('models/OC_Segmentation.h5')
+            cup_model = get_unet1(do=0.2, activation=act)
+            cup_model.load_weights('models/OC_Segmentation.h5')
 
-        disc_pred = disc_model.predict(np.array([img_r]))
-        disc_pred = np.clip(disc_pred, 0, 1)
-        pred_disc = (disc_pred[0, :, :, 0]>0.5).astype(int)
-        pred_disc = 255 * pred_disc#.*(pred_disc - np.min(pred_disc))/(np.max(pred_disc)-np.min(pred_disc))
-        cv2.imwrite('temp_disc.png', pred_disc)
+            disc_pred = disc_model.predict(np.array([img_r]))
+            disc_pred = np.clip(disc_pred, 0, 1)
+            pred_disc = (disc_pred[0, :, :, 0]>0.5).astype(int)
+            pred_disc = 255 * pred_disc#.*(pred_disc - np.min(pred_disc))/(np.max(pred_disc)-np.min(pred_disc))
+            cv2.imwrite('temp_disc.png', pred_disc)
 
+            disc = cv2.imread('temp_disc.png', cv2.IMREAD_GRAYSCALE)
+            st.image(pred_disc, width=225)
+
+            masked = cv2.bitwise_and(img, img, mask = disc)
+            #st.image(disc)
+            st.image(masked, width=225)
+            #plt.show()
+
+            mb, mg, mr = cv2.split(masked)
+            masked = cv2.merge((mg, mg, mg)) #Morphological segmentation for defining optic disc from Green channel and optic cup from Red channel
+
+        with col1_b: #cup segmentation
+            cup_pred = cup_model.predict(np.array([masked]))
+            pred_cup = (cup_pred[0, :, :, 0]>0.5).astype(int)
+            pred_cup = cv2.bilateralFilter(cup_pred[0, :, :, 0],10,40,20)
+            pred_cup = (pred_cup > 0.5).astype(int)
+            pred_cup = resize(pred_cup, (512, 512))
+            pred_cup = 255.*(pred_cup - np.min(pred_cup))/(np.max(pred_cup)-np.min(pred_cup))
+            cv2.imwrite('temp_cup.png', pred_cup)
+            cup = cv2.imread('temp_cup.png', cv2.IMREAD_GRAYSCALE)
+            st.image(pred_cup, clamp = True)
+
+        disc = resize(disc, (512, 512))
+        cv2.imwrite('temp_disc.png', disc)
         disc = cv2.imread('temp_disc.png', cv2.IMREAD_GRAYSCALE)
-        st.image(pred_disc, width=225)
+        (thresh, disc) = cv2.threshold(disc, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+        cv2.imwrite('temp_disc.png', disc)
+        (thresh, cup) = cv2.threshold(cup, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
-        masked = cv2.bitwise_and(img, img, mask = disc)
-        #st.image(disc)
-        st.image(masked, width=225)
-        #plt.show()
-
-        mb, mg, mr = cv2.split(masked)
-        masked = cv2.merge((mg, mg, mg)) #Morphological segmentation for defining optic disc from Green channel and optic cup from Red channel
-
-    with col1_b: #cup segmentation
-        cup_pred = cup_model.predict(np.array([masked]))
-        pred_cup = (cup_pred[0, :, :, 0]>0.5).astype(int)
-        pred_cup = cv2.bilateralFilter(cup_pred[0, :, :, 0],10,40,20)
-        pred_cup = (pred_cup > 0.5).astype(int)
-        pred_cup = resize(pred_cup, (512, 512))
-        pred_cup = 255.*(pred_cup - np.min(pred_cup))/(np.max(pred_cup)-np.min(pred_cup))
-        cv2.imwrite('temp_cup.png', pred_cup)
-        cup = cv2.imread('temp_cup.png', cv2.IMREAD_GRAYSCALE)
-        st.image(pred_cup, clamp = True)
-
-    disc = resize(disc, (512, 512))
-    cv2.imwrite('temp_disc.png', disc)
-    disc = cv2.imread('temp_disc.png', cv2.IMREAD_GRAYSCALE)
-    (thresh, disc) = cv2.threshold(disc, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-    cv2.imwrite('temp_disc.png', disc)
-    (thresh, cup) = cv2.threshold(cup, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-
-    cup_img = Image.open('temp_cup.png')
-    disc_img = Image.open('temp_disc.png')  
-    os.remove('temp_cup.png')
-    os.remove('temp_disc.png')
+        cup_img = Image.open('temp_cup.png')
+        disc_img = Image.open('temp_disc.png')  
+        os.remove('temp_cup.png')
+        os.remove('temp_disc.png')
 
         prediction = import_and_predict(imageI, model)
         pred = ((prediction[0][0]))
