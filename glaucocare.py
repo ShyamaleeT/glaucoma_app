@@ -187,7 +187,7 @@ elif choose == "Glaucoma Analysis Tool":
 
     model = tf.keras.models.load_model('model.h5', compile=False)
     #model1 = 'models/OD_Segmentation.h5'
-    model2 = 'models/OC_Segmentation.h5'
+    model2 = tf.keras.models.load_model('models/OC_Segmentation.h5',compile=False)
     
     label_dict={1:'Glaucoma', 0:'Normal'}
 
@@ -236,7 +236,7 @@ elif choose == "Glaucoma Analysis Tool":
             #disc_model.load_weights('OD_Segmentation.h5')
 
             cup_model = get_unet1(do=0.2, activation=act)
-            cup_model.load_weights(model2)
+            cup_model.model2()
 
             disc_pred = disc_model.predict(np.array([img_r]))
             disc_pred = np.clip(disc_pred, 0, 1)
