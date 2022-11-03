@@ -281,7 +281,7 @@ elif choose == "Glaucoma Analysis Tool":
         st.markdown("***")
         st.subheader('Cup-to-Disc Ratio (CDR)')
         st.markdown(f'<h1 style="color:Gray;font-size:20px;">{"The normal cup-to-disc ratio is less than 0.4mm. A large cup-to-disc ratio may imply glaucoma."} </h1>', unsafe_allow_html=True)
-        
+        dias, cup_dias = cal(cup, disc, 'r')
         ddls, disc_dias, minrim, minang, minind = DDLS(cup_img, disc_img, 5)
         CDR = cup_dias[0]/disc_dias[0]
         st.markdown(f'<h1 style="color:Black;font-size:25px;">{"CDR : %.5f" % ver_cdr}</h1>', unsafe_allow_html=True)
