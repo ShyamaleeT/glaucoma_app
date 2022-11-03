@@ -236,7 +236,7 @@ elif choose == "Glaucoma Analysis Tool":
             #disc_model.load_weights('OD_Segmentation.h5')
 
             cup_model = get_unet1(do=0.2, activation=act)
-            cup_model.load_weights('OC_Segmentation.h5')
+            cup_model.load_weights('models/OC_Segmentation.h5')
 
             disc_pred = disc_model.predict(np.array([img_r]))
             disc_pred = np.clip(disc_pred, 0, 1)
