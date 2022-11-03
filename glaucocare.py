@@ -284,7 +284,7 @@ elif choose == "Glaucoma Analysis Tool":
         dias, cup_dias = cal(cup, disc, 'r')
         ddls, disc_dias, minrim, minang, minind = DDLS(cup_img, disc_img, 5)
         CDR = cup_dias[0]/disc_dias[0]
-        st.markdown(f'<h1 style="color:Black;font-size:25px;">{"CDR : %.5f" % ver_cdr}</h1>', unsafe_allow_html=True)
+        st.markdown(f'<h1 style="color:Black;font-size:25px;">{"CDR : %.5f" % CDR}</h1>', unsafe_allow_html=True)
         
         st.markdown("***")
         prediction = import_and_predict(imageI, model)
