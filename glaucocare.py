@@ -186,8 +186,7 @@ elif choose == "Glaucoma Analysis Tool":
     #model_path = os.path.join(my_path, "sep_5.h5")
 
     model = tf.keras.models.load_model('model.h5', compile=False)
-    model1 = tf.keras.models.load_model('models/OD_Segmentation.h5', compile=False)
-    model2 = tf.keras.models.load_model('models/OC_Segmentation.h5', compile=False)
+    
     
     label_dict={1:'Glaucoma', 0:'Normal'}
 
@@ -247,9 +246,12 @@ elif choose == "Glaucoma Analysis Tool":
             img_r = cv2.merge((b, b, b))/255.
             #img_r1= cv2.resize(img_r, (224,224))
             #st.image(img)
-
+            
+            #model1 = tf.keras.models.load_model('models/OD_Segmentation.h5', compile=False)
+    #model2 = tf.keras.models.load_model('models/OC_Segmentation.h5', compile=False)
+   
             disc_model = get_unet(do=0.25, activation=act)
-            disc_model.load_weights(model1)
+            disc_model.tf.keras.models.load_model('models/OD_Segmentation.h5')
 
             cup_model = get_unet1(do=0.2, activation=act)
             cup_model.load_weights(model2)
