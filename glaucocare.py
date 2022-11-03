@@ -39,10 +39,10 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 
 if not os.path.isfile('model.h5'):
     subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
-#if not os.path.isfile('OD_Segmentation.h5'):
-    #subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5"'], shell=True)
-#if not os.path.isfile('OC_Segmentation.h5'):
-    #subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
+if not os.path.isfile('OD_Segmentation.h5'):
+    subprocess.run(['curl --output model1.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5"'], shell=True)
+if not os.path.isfile('OC_Segmentation.h5'):
+    subprocess.run(['curl --output model2.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
     
 def preprocess(img, req_size = (224,224)):
     image = Image.fromarray(img.astype('uint8'))
