@@ -224,7 +224,7 @@ elif choose == "Glaucoma Analysis Tool":
         col1_a, col1_b = st.columns(2)
 
         with col1_a:
-
+            st.subheader("Segmented Optic Disc")
             contour_img = np.array(Image.open(file))
             img = cv2.resize(contour_img, (256, 256))
             b, g, r = cv2.split(img)
@@ -255,6 +255,7 @@ elif choose == "Glaucoma Analysis Tool":
             masked = cv2.merge((mg, mg, mg)) #Morphological segmentation for defining optic disc from Green channel and optic cup from Red channel
 
         with col1_b: #cup segmentation
+            st.subheader("Segmented Optic Cup")
             cup_pred = cup_model.predict(np.array([masked]))
             pred_cup = (cup_pred[0, :, :, 0]>0.5).astype(int)
             pred_cup = cv2.bilateralFilter(cup_pred[0, :, :, 0],10,40,20)
