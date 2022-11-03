@@ -233,7 +233,7 @@ elif choose == "Glaucoma Analysis Tool":
             #st.image(img)
             
             disc_model = get_unet(do=0.25, activation=act)
-            disc_model.load_model(model1, compile=False)
+            disc_model.load_weights('OD_Segmentation.h5')
 
             cup_model = get_unet1(do=0.2, activation=act)
             #cup_model.load_weights('models/OC_Segmentation.h5')
