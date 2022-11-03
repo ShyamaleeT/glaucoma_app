@@ -187,7 +187,7 @@ elif choose == "Glaucoma Analysis Tool":
 
     model = tf.keras.models.load_model('model.h5', compile=False)
     model1 = tf.keras.models.load_model('model1.h5',compile=False)
-    #model2 = tf.keras.models.load_model('model2.h5',compile=False)
+    model2 = tf.keras.models.load_model('model2.h5',compile=False)
     
     label_dict={1:'Glaucoma', 0:'Normal'}
 
@@ -205,7 +205,7 @@ elif choose == "Glaucoma Analysis Tool":
             #st.image(imageI, width=250, channels="BGR",use_column_width=True)
         
             opencv_image = cv2.imdecode(file_bytes, 1)
-            st.image(opencv_image, width=100, channels="BGR",use_column_width=True)
+            st.image(opencv_image, width=225,channels="BGR",use_column_width=False)
             opencv_image_processed = preprocess(opencv_image)
             
         with col_b:
@@ -219,7 +219,7 @@ elif choose == "Glaucoma Analysis Tool":
             heatmap = cv2.resize(heatmap, (opencv_image.shape[1], opencv_image.shape[0]))
             (heatmap, output) = cam.overlay_heatmap(heatmap, opencv_image, alpha=0.5)
             output = imutils.resize(output, width=100)
-            st.image(output,channels="BGR",use_column_width=True)
+            st.image(output,width=225,channels="BGR",use_column_width=False)
         
         col1_a, col1_b = st.columns(2)
 
@@ -236,7 +236,7 @@ elif choose == "Glaucoma Analysis Tool":
             disc_model.load_weights('model1.h5')
 
             cup_model = get_unet1(do=0.2, activation=act)
-            #cup_model.load_weights(model2)
+            cup_model.load_weights('model2.h5')
 
             disc_pred = disc_model.predict(np.array([img_r]))
             disc_pred = np.clip(disc_pred, 0, 1)
@@ -263,7 +263,7 @@ elif choose == "Glaucoma Analysis Tool":
             pred_cup = 255.*(pred_cup - np.min(pred_cup))/(np.max(pred_cup)-np.min(pred_cup))
             cv2.imwrite('temp_cup.png', pred_cup)
             cup = cv2.imread('temp_cup.png', cv2.IMREAD_GRAYSCALE)
-            st.image(pred_cup, clamp = True)
+            st.image(pred_cup,width=225,clamp = True)
 
         disc = resize(disc, (512, 512))
         cv2.imwrite('temp_disc.png', disc)
