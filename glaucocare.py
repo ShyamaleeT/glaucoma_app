@@ -39,9 +39,9 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 
 if not os.path.isfile('model.h5'):
     subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
-if not os.path.isfile('OD_Segmentation.h5'):
+if not os.path.isfile('models/OD_Segmentation.h5'):
     subprocess.run(['curl --output model1.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5"'], shell=True)
-if not os.path.isfile('OC_Segmentation.h5'):
+if not os.path.isfile('models/OC_Segmentation.h5'):
     subprocess.run(['curl --output model2.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
     
 def preprocess(img, req_size = (224,224)):
@@ -236,7 +236,7 @@ elif choose == "Glaucoma Analysis Tool":
             #disc_model.load_weights('OD_Segmentation.h5')
 
             cup_model = get_unet1(do=0.2, activation=act)
-            cup_model.load_weights('models/OC_Segmentation.h5')
+            cup_model.load_weights(model2)
 
             disc_pred = disc_model.predict(np.array([img_r]))
             disc_pred = np.clip(disc_pred, 0, 1)
