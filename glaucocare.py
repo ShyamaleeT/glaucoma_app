@@ -186,8 +186,8 @@ elif choose == "Glaucoma Analysis Tool":
     #model_path = os.path.join(my_path, "sep_5.h5")
 
     model = tf.keras.models.load_model('model.h5', compile=False)
-    #model1 = tf.keras.models.load_model('models/OD_Segmentation.h5', compile=False)
-    #model2 = tf.keras.models.load_model('models/OC_Segmentation.h5', compile=False)
+    #model1 = load_model('models/OD_Segmentation.h5', compile=False)
+    #model2 = load_model('models/OC_Segmentation.h5', compile=False)
     
     label_dict={1:'Glaucoma', 0:'Normal'}
 
@@ -207,22 +207,6 @@ elif choose == "Glaucoma Analysis Tool":
             opencv_image = cv2.imdecode(file_bytes, 1)
             st.image(opencv_image, width=100, channels="BGR",use_column_width=True)
             opencv_image_processed = preprocess(opencv_image)
-
-        #with col_b:
-            # imageI = Image.open(file)
-            # st.image(imageI, width=250)
-
-#             st.subheader(" Heatmap")
-#             last_conv_layer= "conv5_block3_out" 
-
-#             preds = model.predict(opencv_image_processed)
-#             i = np.argmax(preds[0])
-#             cam = GradCAM(model, i, last_conv_layer) 
-#             heatmap = cam.compute_heatmap(opencv_image_processed)
-#             heatmap = cv2.resize(heatmap, (opencv_image.shape[1], opencv_image.shape[0]))
-#             (heatmap, output) = cam.overlay_heatmap(heatmap, opencv_image, alpha=0.5)
-#             heatmap = imutils.resize(heatmap, width=100)
-#             st.image(heatmap,channels="BGR",use_column_width=True)
             
         with col_b:
             st.subheader("Visualized image")
@@ -248,14 +232,11 @@ elif choose == "Glaucoma Analysis Tool":
             #img_r1= cv2.resize(img_r, (224,224))
             #st.image(img)
             
-            
-   
             disc_model = get_unet(do=0.25, activation=act)
-            disc_model.load_model(model1)
-             #tf.keras.models.load_model('models/OD_Segmentation.h5',
+            disc_model.load_model('models/OD_Segmentation.h5')
 
             cup_model = get_unet1(do=0.2, activation=act)
-            cup_model.model2()
+            cup_model.load_model('models/OC_Segmentation.h5')
 
             disc_pred = disc_model.predict(np.array([img_r]))
             disc_pred = np.clip(disc_pred, 0, 1)
