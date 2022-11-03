@@ -275,9 +275,18 @@ elif choose == "Glaucoma Analysis Tool":
 
         cup_img = Image.open('temp_cup.png')
         disc_img = Image.open('temp_disc.png')  
-        os.remove('temp_cup.png')
-        os.remove('temp_disc.png')
-
+        #os.remove('temp_cup.png')
+        #os.remove('temp_disc.png')
+        
+        st.markdown("***")
+        st.subheader('Cup-to-Disc Ratio (CDR)')
+        st.markdown(f'<h1 style="color:Gray;font-size:20px;">{"The normal cup-to-disc ratio is less than 0.4mm. A large cup-to-disc ratio may imply glaucoma."} </h1>', unsafe_allow_html=True)
+        
+        ddls, disc_dias, minrim, minang, minind = DDLS(cup_img, disc_img, 5)
+        CDR = cup_dias[0]/disc_dias[0]
+        st.markdown(f'<h1 style="color:Black;font-size:25px;">{"CDR : %.5f" % ver_cdr}</h1>', unsafe_allow_html=True)
+        
+        st.markdown("***")
         prediction = import_and_predict(imageI, model)
         pred = ((prediction[0][0]))
         print (pred)
