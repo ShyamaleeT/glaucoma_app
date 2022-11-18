@@ -10,6 +10,7 @@ import tensorflow as tf
 from io import StringIO
 from keras import losses
 from gradcam import GradCAM
+from st_aggrid import AgGrid
 from matplotlib import pyplot
 import matplotlib.pyplot as plt
 from PIL import Image, ImageOps
