@@ -5,6 +5,7 @@ import imutils
 import subprocess
 import numpy as np
 import pandas as pd
+import altair as alt
 import streamlit as st
 import tensorflow as tf
 from io import StringIO
