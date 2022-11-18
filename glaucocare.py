@@ -39,9 +39,9 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 
 if not os.path.isfile('model.h5'):
     subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
-if not os.path.isfile('models/OD_Segmentation.h5'):
+if not os.path.isfile('models/model1.h5'):
     subprocess.run(['curl --output model1.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5"'], shell=True)
-if not os.path.isfile('models/OC_Segmentation.h5'):
+if not os.path.isfile('models/model2.h5'):
     subprocess.run(['curl --output model2.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
     
 def preprocess(img, req_size = (224,224)):
@@ -186,8 +186,8 @@ elif choose == "Glaucoma Analysis Tool":
     #model_path = os.path.join(my_path, "sep_5.h5")
 
     model = tf.keras.models.load_model('model.h5', compile=False)
-    model1 = tf.keras.models.load_model('models/model1.h5',compile=False)
-    model2 = tf.keras.models.load_model('models/model2.h5',compile=False)
+    model1 = tf.keras.models.load_model('model1.h5',compile=False)
+    model2 = tf.keras.models.load_model('model2.h5',compile=False)
     
     label_dict={1:'Glaucoma', 0:'Normal'}
 
