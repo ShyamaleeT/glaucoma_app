@@ -288,7 +288,7 @@ elif choose == "Glaucoma Analysis Tool":
         ddls, disc_dias, minrim, minang, minind = DDLS(cup_img, disc_img, 5)
         CDR = cup_dias[0]/disc_dias[0]
         st.markdown(f'<h1 style="color:Black;font-size:25px;">{"CDR : %.5f" % CDR}</h1>', unsafe_allow_html=True)
-        remove('CDR')
+        
         
         
         st.markdown("***")
@@ -310,11 +310,11 @@ elif choose == "Glaucoma Analysis Tool":
         if(pred> 0.5):
             st.markdown(f'<h1 style="color:Red;font-size:35px;">{""" Glaucoma Eye"""}</h1>', unsafe_allow_html=True)
             st.text("The area in the image that is highlighted is thought to be glaucomatous.")
-            #remove('Normal_prob')
+            
             
         else:
             st.markdown(f'<h1 style="color:Blue;font-size:35px;">{"""Healthy Eye"""}</h1>', unsafe_allow_html=True)
-            #remove('Normal_prob')
+            
           
                 #st.write("""### You are affected by Glaucoma. Please consult an ophthalmologist as soon as possible.""" )
 
@@ -322,8 +322,7 @@ elif choose == "Glaucoma Analysis Tool":
         col1, col2 = st.columns(2)
         col1.metric("Glaucoma", Glaucoma_prob)
         col2.metric("Normal", Normal_prob)
-        remove('Glaucoma_prob')
-        remove('Normal_prob')
+
 
         st.caption("**Note:This is a prototype tool for glaucoma diagnosis, using experimental deep learning techniques. It is recommended to consult a medical doctor for a proper diagnosis.")
     
