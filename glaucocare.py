@@ -293,13 +293,13 @@ elif choose == "Glaucoma Analysis Tool":
         st.markdown("***")
         prediction = import_and_predict(imageI, model)
         pred = ((prediction[0][0]))
-        print (pred)
+        #print (pred)
         result=np.argmax(prediction,axis=1)[0]
-        print (result)
+        #print (result)
         accuracy=float(np.max(prediction,axis=1)[0])
-        print(accuracy)
+        #print(accuracy)
         label=label_dict[result]
-        print(label)
+        #print(label)
         # print(pred,result,accuracy)
         # response = {'prediction': {'result': label,'accuracy': accuracy}}
         # print(response)
