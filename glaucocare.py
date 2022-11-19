@@ -16,6 +16,7 @@ from matplotlib import pyplot
 import matplotlib.pyplot as plt
 from PIL import Image, ImageOps
 from keras.models import Model
+import plotly.graph_objects as go
 from keras.layers import ELU, ReLU
 from keras.models import load_model
 from keras.preprocessing import image
@@ -283,13 +284,17 @@ elif choose == "Glaucoma Analysis Tool":
         
         st.markdown("***")
         st.subheader('Cup-to-Disc Ratio (CDR)')
+        
+        fig = go.Figure(data=[go.Table(header=dict(values=['A Scores', 'B Scores']),
+                         cells=dict(values=[[100, 90, 80, 90], [95, 85, 75, 95]]))
+                             ])
+        fig.show()
+
         st.markdown(f'<h1 style="color:Gray;font-size:20px;">{"The normal cup-to-disc ratio is less than 0.4mm. A large cup-to-disc ratio may imply glaucoma."} </h1>', unsafe_allow_html=True)
         dias, cup_dias = cal(cup, disc, 'r')
         ddls, disc_dias, minrim, minang, minind = DDLS(cup_img, disc_img, 5)
         CDR = cup_dias[0]/disc_dias[0]
         st.markdown(f'<h1 style="color:Black;font-size:25px;">{"CDR : %.5f" % CDR}</h1>', unsafe_allow_html=True)
-        
-        
         
         st.markdown("***")
         prediction = import_and_predict(imageI, model)
