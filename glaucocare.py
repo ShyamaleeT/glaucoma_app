@@ -250,7 +250,7 @@ elif choose == "Glaucoma Analysis Tool":
 #             output = imutils.resize(output, width=100)
 #             st.image(output,width=225,channels="BGR",use_column_width=False)
 
-        with col3:
+        with col_c:
             st.subheader("Grad-CAM++")
             last_conv_layer= "conv5_block3_out"
             img_path = np.array(Image.open(file))
