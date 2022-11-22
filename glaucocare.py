@@ -10,7 +10,6 @@ import streamlit as st
 import tensorflow as tf
 from io import StringIO
 from keras import losses
-from gradcam import GradCAM
 from st_aggrid import AgGrid
 from matplotlib import pyplot
 import matplotlib.pyplot as plt
@@ -26,6 +25,7 @@ from keras.models import Model, load_model
 from keras_preprocessing.image import load_img
 from tensorflow.keras.optimizers import Adadelta
 from tensorflow.keras.applications import ResNet50
+from gradcamplusplus import grad_cam, grad_cam_plus
 from tensorflow.keras.applications import imagenet_utils
 from tensorflow.keras.utils import load_img, img_to_array 
 from tensorflow.keras.preprocessing.image import img_to_array
@@ -54,6 +54,25 @@ def preprocess(img, req_size = (224,224)):
     face_array = img_to_array(image)
     face_array = np.expand_dims(face_array, 0)
     return face_array
+
+def preprocess_image(img_path, target_size=(224,224)):
+    image = Image.fromarray(img_path.astype('uint8'))
+    image = image.resize(target_size)
+    img = img_to_array(image)
+    #img = np.expand_dims(img, 0)
+    img /= 255
+    return img
+
+def show_imgwithheat(img_path, heatmap, alpha=0.5, return_array=False):
+    img = np.array(Image.fromarray(img_path))
+    #img = cv2.imread(img_path)
+    heatmap = cv2.resize(heatmap, (img.shape[1], img.shape[0]))
+    heatmap = (heatmap*255).astype("uint8")
+    heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
+    superimposed_img = heatmap * alpha + img
+    superimposed_img = np.clip(superimposed_img, 0, 255).astype("uint8")
+    superimposed_img = cv2.cvtColor(superimposed_img, cv2.COLOR_BGR2RGB)
+    return superimposed_img
 
 def import_and_predict(image_data, model):
     image = ImageOps.fit(image_data, (224,224),Image.LANCZOS)
@@ -201,7 +220,7 @@ elif choose == "Glaucoma Analysis Tool":
         file_details = {"filename": file.name, "filetype": file.type,"filesize": file.size}
         file_bytes = np.asarray(bytearray(file.read()), dtype=np.uint8)
 
-        col_a, col_b = st.columns(2)
+        col_a, col_b, col_c = st.columns(3)
 
         with col_a:
             st.subheader("Input image")
@@ -213,17 +232,33 @@ elif choose == "Glaucoma Analysis Tool":
             opencv_image_processed = preprocess(opencv_image)
             
         with col_b:
-            st.subheader("Visualized image")
+            st.subheader("Grad-CAM")
             last_conv_layer= "conv5_block3_out" 
-
-            preds = model.predict(opencv_image_processed)
-            i = np.argmax(preds[0])
-            cam = GradCAM(model, i, last_conv_layer) 
-            heatmap = cam.compute_heatmap(opencv_image_processed)
-            heatmap = cv2.resize(heatmap, (opencv_image.shape[1], opencv_image.shape[0]))
-            (heatmap, output) = cam.overlay_heatmap(heatmap, opencv_image, alpha=0.5)
+            img_path = np.array(Image.open(file))
+            img = preprocess_image(img_path)
+            heatmap = grad_cam(model, img,label_name = ['Glaucoma', 'Normal'],)
+            output = show_imgwithheat(img_path, heatmap)
             output = imutils.resize(output, width=100)
-            st.image(output,width=225,channels="BGR",use_column_width=False)
+            st.image(output,use_column_width=False, width=225)
+            
+#             preds = model.predict(opencv_image_processed)
+#             i = np.argmax(preds[0])
+#             cam = GradCAM(model, i, last_conv_layer) 
+#             heatmap = cam.compute_heatmap(opencv_image_processed)
+#             heatmap = cv2.resize(heatmap, (opencv_image.shape[1], opencv_image.shape[0]))
+#             (heatmap, output) = cam.overlay_heatmap(heatmap, opencv_image, alpha=0.5)
+#             output = imutils.resize(output, width=100)
+#             st.image(output,width=225,channels="BGR",use_column_width=False)
+
+        with col3:
+            st.subheader("Grad-CAM++")
+            last_conv_layer= "conv5_block3_out"
+            img_path = np.array(Image.open(file))
+            img = preprocess_image(img_path)
+            heatmap_plus = grad_cam_plus(model, img)
+            output = show_imgwithheat(img_path, heatmap_plus)
+            output = imutils.resize(output, width=100)
+            st.image(output,use_column_width=False, width=225)
         
         col1_a, col1_b = st.columns(2)
 
