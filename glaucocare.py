@@ -349,7 +349,7 @@ elif choose == "Glaucoma Analysis Tool":
         Glaucoma_prob = "{:.2%}".format(pred)
         if(pred> 0.5):
             st.markdown(f'<h1 style="color:Red;font-size:35px;">{""" Glaucoma Eye"""}</h1>', unsafe_allow_html=True)
-            st.text("The area in the image that is highlighted is thought to be glaucomatous.")
+            #st.text("The area in the image that is highlighted is thought to be glaucomatous.")
             
             
         else:
