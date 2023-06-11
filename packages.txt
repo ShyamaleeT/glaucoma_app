@@ -4,3 +4,4 @@ libgl1-mesa-glx
 build-essential
 python-dev
 default-libmysqlclient-dev
+apt-get
