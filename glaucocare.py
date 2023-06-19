@@ -12,6 +12,7 @@ from io import StringIO
 from keras import losses
 from st_aggrid import AgGrid
 from matplotlib import pyplot
+from keras import preprocessing
 import matplotlib.pyplot as plt
 from PIL import Image, ImageOps
 from keras.models import Model
