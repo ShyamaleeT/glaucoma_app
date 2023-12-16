@@ -11,6 +11,6 @@ tensorflow
 matplotlib
 imutils
 scikit-image
-streamlit == 0.74.1
+streamlit
 scikit-learn
 Keras-Preprocessing
