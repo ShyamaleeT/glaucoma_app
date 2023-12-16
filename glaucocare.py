@@ -40,10 +40,7 @@ act = ReLU
 from custom_model import *
 from CDR import *
 
-#st.set_option('deprecation.showfileUploaderEncoding', False)
-
-[deprecation]
-showfileUploaderEncoding = False
+st.set_option('deprecation.showfileUploaderEncoding', False)
 
 if not os.path.isfile('model.h5'):
     subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
