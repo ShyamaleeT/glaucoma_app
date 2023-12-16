@@ -216,7 +216,6 @@ elif choose == "Glaucoma Analysis Tool":
     label_dict={1:'Glaucoma', 0:'Normal'}
 
     file = st.file_uploader("Please upload an image(jpg/png/jpeg/bmp) file", type=["jpg", "png", "jpeg", "bmp"])
-    st.set_option('deprecation.showfileUploaderEncoding', False)
 
     if file is not None:
         file_details = {"filename": file.name, "filetype": file.type,"filesize": file.size}
