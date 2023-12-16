@@ -3,7 +3,6 @@ import cv2
 import keras
 import imutils
 import subprocess
-import deprecation
 import numpy as np
 import pandas as pd
 import altair as alt
