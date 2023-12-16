@@ -39,8 +39,10 @@ act = ReLU
 from custom_model import *
 from CDR import *
 
-st.set_option('deprecation.showfileUploaderEncoding', False)
+#st.set_option('deprecation.showfileUploaderEncoding', False)
 
+[deprecation]
+showfileUploaderEncoding = False
 
 if not os.path.isfile('model.h5'):
     subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
@@ -216,7 +218,7 @@ elif choose == "Glaucoma Analysis Tool":
     label_dict={1:'Glaucoma', 0:'Normal'}
 
     file = st.file_uploader("Please upload an image(jpg/png/jpeg/bmp) file", type=["jpg", "png", "jpeg", "bmp"])
-    text_io = io.TextIOWrapper(uploaded_file)
+    #text_io = io.TextIOWrapper(uploaded_file)
 
     if file is not None:
         file_details = {"filename": file.name, "filetype": file.type,"filesize": file.size}
