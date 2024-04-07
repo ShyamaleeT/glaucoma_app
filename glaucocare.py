@@ -119,8 +119,8 @@ download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/
 download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5", "models/model2.h5")
 
 model = load_model("model.h5")
-model1 = load_model("models/model1.h5")
-model2 = load_model("models/model2.h5")
+model1 = load_model("model1.h5")
+model2 = load_model("model2.h5")
     
 def preprocess(img, req_size = (224,224)):
     image = Image.fromarray(img.astype('uint8'))
