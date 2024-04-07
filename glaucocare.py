@@ -75,19 +75,19 @@ def load_model(model_path):
 def load_model(model_path1):
     # Attempt to load model with error handling & caching
     try:
-        model = tf.keras.models.load_model(models/model2.h5, compile=False)
+        model = tf.keras.models.load_model(model2.h5, compile=False)
         return model
     except Exception as e:
-        print(f"Error loading model {models/model1.h5}: {e}")
+        print(f"Error loading model {model1.h5}: {e}")
         return None
 
 def load_model(model_path2):
     # Attempt to load model with error handling & caching
     try:
-        model = tf.keras.models.load_model(models/model2.h5, compile=False)
+        model = tf.keras.models.load_model(model2.h5, compile=False)
         return model
     except Exception as e:
-        print(f"Error loading model {models/model2.h5}: {e}")
+        print(f"Error loading model {model2.h5}: {e}")
         return None
 
 # Download and load the models
