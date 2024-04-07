@@ -41,7 +41,7 @@ from CDR import *
 
 #st.set_option('deprecation.showfileUploaderEncoding', False)
 
-def download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5", model.h5):
+def download_model('https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5', model.h5):
     # Function to download the model file if it doesn't exist
     if not os.path.isfile('model.h5'):
         subprocess.run([f'curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
