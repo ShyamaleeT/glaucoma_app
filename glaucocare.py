@@ -41,21 +41,6 @@ from CDR import *
 
 #st.set_option('deprecation.showfileUploaderEncoding', False)
 
-# def download_model(url, file_path):
-#     # Function to download the model file if it doesn't exist
-#     if not os.path.isfile('model.h5'):
-#         subprocess.run([f'curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
-
-# def download_model(url1, file_path1):
-#     # Function to download the model file if it doesn't exist
-#     if not os.path.isfile('models/model1.h5'):
-#         subprocess.run([f'curl --output model1.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5"'], shell=True)
-
-# def download_model(url2, file_path2):
-#     # Function to download the model file if it doesn't exist
-#     if not os.path.isfile('models/model2.h5'):
-#         subprocess.run([f'curl --output model2.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
-
 # #if not os.path.isfile('model.h5'):
 #     #subprocess.run(['curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
 # #if not os.path.isfile('models/model1.h5'):
@@ -63,41 +48,6 @@ from CDR import *
 # #if not os.path.isfile('models/model2.h5'):
 #     #subprocess.run(['curl --output model2.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
 
-# def load_model(model_path):
-#     # Attempt to load model with error handling & caching
-#     try:
-#         model = tf.keras.models.load_model(model_path, compile=False)
-#         return model
-#     except Exception as e:
-#         print(f"Error loading model {model_path}: {e}")
-#         return None
-
-# def load_model(model_path1):
-#     # Attempt to load model with error handling & caching
-#     try:
-#         model = tf.keras.models.load_model(model_path1, compile=False)
-#         return model
-#     except Exception as e:
-#         print(f"Error loading model {model_path1}: {e}")
-#         return None
-
-# def load_model(model_path2):
-#     # Attempt to load model with error handling & caching
-#     try:
-#         model = tf.keras.models.load_model(model_path2, compile=False)
-#         return model
-#     except Exception as e:
-#         print(f"Error loading model {model_path2}: {e}")
-#         return None
-
-# # Download and load the models
-# download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5", "model.h5")
-# download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5", "models/model1.h5")
-# download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5", "models/model2.h5")
-
-# model = load_model("model.h5")
-# model1 = load_model("models/model1.h5")
-# model2 = load_model("models/model2.h5")
 
 def download_model(url, file_path):
     # Function to download the model file if it doesn't exist
@@ -119,8 +69,8 @@ download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/
 download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5", "models/model2.h5")
 
 model = load_model("model.h5")
-model1 = load_model("model1.h5")
-model2 = load_model("model2.h5")
+model1 = load_model("models/model1.h5")
+model2 = load_model("models/model2.h5")
     
 def preprocess(img, req_size = (224,224)):
     image = Image.fromarray(img.astype('uint8'))
