@@ -46,12 +46,12 @@ def download_model(url, file_path):
     if not os.path.isfile('model.h5'):
         subprocess.run([f'curl --output model.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/sep_5.h5"'], shell=True)
 
-def download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5", 'models/model1.h5'):
+def download_model(url1, file_path1):
     # Function to download the model file if it doesn't exist
     if not os.path.isfile('models/model1.h5'):
         subprocess.run([f'curl --output model1.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5"'], shell=True)
 
-def download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5", models/model2.h5):
+def download_model(url2, file_path2):
     # Function to download the model file if it doesn't exist
     if not os.path.isfile('models/model2.h5'):
         subprocess.run([f'curl --output model2.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
