@@ -282,9 +282,9 @@ elif choose == "Glaucoma Analysis Tool":
     #my_path = os.path.abspath(os.path.dirname(__file__))
     #model_path = os.path.join(my_path, "sep_5.h5")
 
-    #model = tf.keras.models.load_model('model.h5', compile=False)
-    #model1 = tf.keras.models.load_model('model1.h5',compile=False)
-    #model2 = tf.keras.models.load_model('model2.h5',compile=False)
+    model = tf.keras.models.load_model('model.h5', compile=False)
+    model1 = tf.keras.models.load_model('model1.h5',compile=False)
+    model2 = tf.keras.models.load_model('model2.h5',compile=False)
 
 
     
