@@ -63,7 +63,7 @@ def download_model(url2, file_path2):
 #if not os.path.isfile('models/model2.h5'):
     #subprocess.run(['curl --output model2.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
 
-def load_model(model.h5):
+def load_model(model_path):
     # Attempt to load model with error handling & caching
     try:
         model = tf.keras.models.load_model(model.h5, compile=False)
@@ -72,7 +72,7 @@ def load_model(model.h5):
         print(f"Error loading model {model.h5}: {e}")
         return None
 
-def load_model(models/model1.h5):
+def load_model(model_path1):
     # Attempt to load model with error handling & caching
     try:
         model = tf.keras.models.load_model(models/model2.h5, compile=False)
@@ -81,7 +81,7 @@ def load_model(models/model1.h5):
         print(f"Error loading model {models/model1.h5}: {e}")
         return None
 
-def load_model(models/model2.h5):
+def load_model(model_path2):
     # Attempt to load model with error handling & caching
     try:
         model = tf.keras.models.load_model(models/model2.h5, compile=False)
