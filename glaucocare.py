@@ -48,6 +48,7 @@ from CDR import *
 # #if not os.path.isfile('models/model2.h5'):
 #     #subprocess.run(['curl --output model2.h5 "https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5"'], shell=True)
 
+model.compiled_metrics == None
 
 def download_model(url, file_path):
     # Function to download the model file if it doesn't exist
