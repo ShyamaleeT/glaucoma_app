@@ -53,7 +53,8 @@ def grad_cam_plus(model, img,
     img_tensor = np.expand_dims(img, axis=0)
 
     conv_layer = model.get_layer(layer_name)
-    heatmap_model = Model([model.inputs], [conv_layer.output, model.output])
+    #heatmap_model = Model([model.inputs], [conv_layer.output, model.output])
+    heatmap_model = Model(model.inputs, [conv_layer.output, model.output])
 
     with tf.GradientTape() as gtape1:
         with tf.GradientTape() as gtape2:
