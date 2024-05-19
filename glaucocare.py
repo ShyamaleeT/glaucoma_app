@@ -68,9 +68,9 @@ download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/
 download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OD_Segmentation.h5", "models/model1.h5")
 download_model("https://media.githubusercontent.com/media/ShyamaleeT/glaucocare/main/models/OC_Segmentation.h5", "models/model2.h5")
 
-model = load_model("model.h5")
-model1 = load_model("models/model1.h5")
-model2 = load_model("models/model2.h5")
+#model = load_model("model.h5")
+#model1 = load_model("models/model1.h5")
+#model2 = load_model("models/model2.h5")
     
 def preprocess(img, req_size = (224,224)):
     image = Image.fromarray(img.astype('uint8'))
@@ -232,9 +232,9 @@ elif choose == "Glaucoma Analysis Tool":
     #my_path = os.path.abspath(os.path.dirname(__file__))
     #model_path = os.path.join(my_path, "sep_5.h5")
 
-    # model = tf.keras.models.load_model('model.h5', compile=False)
-    # model1 = tf.keras.models.load_model('model1.h5',compile=False)
-    # model2 = tf.keras.models.load_model('model2.h5',compile=False)
+    model = tf.keras.models.load_model('model.h5', compile=False)
+    model1 = tf.keras.models.load_model('model1.h5',compile=False)
+    model2 = tf.keras.models.load_model('model2.h5',compile=False)
 
     
     label_dict={1:'Glaucoma', 0:'Normal'}
