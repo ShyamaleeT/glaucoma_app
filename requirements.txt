@@ -1,7 +1,6 @@
 streamlit_option_menu
 grad-cam
 imageio
-numpy
 keras
 opencv-python-headless
 pandas
@@ -14,3 +13,4 @@ scikit-image
 streamlit
 scikit-learn
 Keras-Preprocessing
+numpy --upgrade
