@@ -13,4 +13,4 @@ scikit-image
 streamlit
 scikit-learn
 Keras-Preprocessing
-numpy --upgrade
+numpy
